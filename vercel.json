@@ -10,21 +10,25 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "https://workin-backend/api/$1"
+      "source": "/api/(.*)",
+      "destination": "https://workin-backend/api/$1"
     },
     {
-      "src": "/(.*\\.(css|js|jpg|jpeg|png|gif|ico))",
-      "headers": {
-        "cache-control": "public, max-age=31536000, immutable"
-      },
-      "continue": true
-    },
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ],
+  "headers": [
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*\\.(css|js|jpg|jpeg|png|gif|ico))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ],
   "cleanUrls": true,
